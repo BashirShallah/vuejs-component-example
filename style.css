@@ -1,0 +1,14 @@
+body{
+	direction: rtl;
+	text-align: right;
+}
+.list-group, .course-statistics {
+	padding-right: 0;
+}
+.course-statistics li{
+	list-style: none;
+	padding-bottom: 5px;
+}
+.youtube-color{
+	color: #FF0000;
+}
