@@ -1,10 +1,13 @@
 Vue.component('course', {
+	'props': {
+		'course': {type: Object, required: true}
+	},
 	'template': `<div class="col-lg-4">
           <div class="card">
-            <img class="card-img-top" src="https://i.ytimg.com/vi/b91YLjLNAbw/sddefault.jpg" alt="Card image cap">
+            <img class="card-img-top" :src="course.thumbnails" :alt="course.name">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title">{{course.name}}</h5>
+              <p class="card-text">{{course.description}}</p>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
@@ -13,16 +16,16 @@ Vue.component('course', {
               </li>
               <li class="list-group-item">
                 <ul class="course-statistics">
-                  <li><i class="fas fa-bars"></i> 66 درس</li>
-                  <li><i class="far fa-clock"></i> 03:00:00</li>
-                  <li><i class="far fa-play-circle"></i> 16,000 مشاهدة</li>
-                  <li><i class="far fa-thumbs-up"></i> 650 إعجاب</li>
-                  <li><i class="far fa-comments"></i> 96 تعليق</li>
+                  <li><i class="fas fa-bars"></i> {{course.statistics.lessons}} درس</li>
+                  <li><i class="far fa-clock"></i> {{course.statistics.duration}}</li>
+                  <li><i class="far fa-play-circle"></i> {{course.statistics.viewCount}} مشاهدة</li>
+                  <li><i class="far fa-thumbs-up"></i> {{course.statistics.likeCount}} إعجاب</li>
+                  <li><i class="far fa-comments"></i> {{course.statistics.commentCount}} تعليق</li>
                 </ul>
               </li>
             </ul>
             <div class="card-body">
-              <button class="btn btn-secondary btn-block">شاهد الآن</button>
+              <a target="_blank" :href="course.url" class="btn btn-secondary btn-block">شاهد الآن</a>
             </div>
           </div>
         </div>`
@@ -30,7 +33,23 @@ Vue.component('course', {
 
 new Vue({
 	'el': '#courses-app',
+	'data': {
+		'firstCourse': {
+	        "id": "PL1FWK-sgJ9ek59ylOuaS8Ggjz9oBVM8Hb",
+	        "name": "VueJS \u0625\u0633\u0623\u0644\u0646\u064a \u0639\u0646",
+	        "url": "https:\/\/www.youtube.com\/watch?v=TQQVt3CbSCw&list=PL1FWK-sgJ9ek59ylOuaS8Ggjz9oBVM8Hb",
+	        "description": "",
+	        "thumbnails": "https:\/\/i.ytimg.com\/vi\/TQQVt3CbSCw\/sddefault.jpg",
+	        "statistics": {
+	            "viewCount": 111,
+	            "likeCount": 11,
+	            "commentCount": 7,
+	            "duration": "00:04:18",
+	            "lessons": 2
+	        }
+	    }
+	},
 	'template': `<div class="row"> 
-			<course></course> 
+			<course :course="firstCourse"></course> 
 		</div>`
 });
