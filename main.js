@@ -33,10 +33,28 @@ Vue.component('course', {
 
 new Vue({
 	'el': '#courses-app',
+	'created': function(){
+		console.log('created hook');
+		this.getCourses();
+	},
+	'methods': {
+		getCourses: function(){
+		  // GET /someUrl
+		  this.$http.get('courses.json').then(response => {
+
+		    // get body data
+		    this.courses = response.body;
+
+		  }, response => {
+		    // error callback
+		  });
+		}
+	},
 	'data': {
+		'courses': [],
 		'firstCourse': {
 	        "id": "PL1FWK-sgJ9ek59ylOuaS8Ggjz9oBVM8Hb",
-	        "name": "VueJS \u0625\u0633\u0623\u0644\u0646\u064a \u0639\u0646",
+	        "name": "First Course",
 	        "url": "https:\/\/www.youtube.com\/watch?v=TQQVt3CbSCw&list=PL1FWK-sgJ9ek59ylOuaS8Ggjz9oBVM8Hb",
 	        "description": "",
 	        "thumbnails": "https:\/\/i.ytimg.com\/vi\/TQQVt3CbSCw\/sddefault.jpg",
@@ -50,6 +68,7 @@ new Vue({
 	    }
 	},
 	'template': `<div class="row"> 
-			<course :course="firstCourse"></course> 
+			<course :course="firstCourse"></course>
+			<course v-for="course in courses" :course="course"></course>
 		</div>`
 });
